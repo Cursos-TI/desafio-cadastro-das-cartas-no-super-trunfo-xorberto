@@ -1,11 +1,15 @@
 #include <stdio.h>
 
-float calcular_densidade_populacional(int populacao, float area) {
+float calcular_densidade_populacional(unsigned long int populacao, float area) {
     return (float) populacao / area;
 }
 
-float calcular_pib_per_capita(float pib, int populacao) {
+float calcular_pib_per_capita(float pib, unsigned long int populacao) {
     return (float) (pib * 1000000000) / populacao;
+}
+
+float calcular_super_poder(unsigned long int populacao, float area, float pib, int pontos_turisticos, float pib_per_capita, float densidade_populacional) {
+    return populacao + area + pib + pontos_turisticos + pib_per_capita + (1 / densidade_populacional);
 }
 
 int main() {
@@ -13,23 +17,25 @@ int main() {
     char estado_1;
     char codigo_carta_1[4];
     char nome_cidade_1[50];
-    int populacao_1;
+    unsigned long int populacao_1;
     float area_1;
     float pib_1;
     int pontos_turisticos_1;
     float densidade_populacional_1;
     float pib_per_capita_1;
+    float super_poder_1;
 
     // Dados da segunda carta
     char estado_2;
     char codigo_carta_2[4];
     char nome_cidade_2[50];
-    int populacao_2;
+    unsigned long int populacao_2;
     float area_2;
     float pib_2;
     int pontos_turisticos_2;
     float densidade_populacional_2;
     float pib_per_capita_2;
+    float super_poder_2;
 
     // Diálogo com o usuário para inserir os dados da primeira carta
     printf("\nInsira os dados da primeira carta:");
@@ -55,6 +61,7 @@ int main() {
 
     printf("Insira o número de pontos turísticos da cidade: ");
     scanf("%d", &pontos_turisticos_1);
+    super_poder_1 = calcular_super_poder(populacao_1, area_1, pib_1, pontos_turisticos_1, pib_per_capita_1, densidade_populacional_1);
 
     // Diálogo com o usuário para inserir os dados da segunda carta
     printf("\nInsira os dados da segunda carta:");
@@ -80,6 +87,7 @@ int main() {
 
     printf("Insira o número de pontos turísticos da cidade: ");
     scanf("%d", &pontos_turisticos_2);
+    super_poder_2 = calcular_super_poder(populacao_2, area_2, pib_2, pontos_turisticos_2, pib_per_capita_2, densidade_populacional_2);
 
     // Exibir os dados da primeira carta
     printf("\nCarta 1:\n");
@@ -104,6 +112,16 @@ int main() {
     printf("Número de Pontos Turísticos: %d\n", pontos_turisticos_2);
     printf("Densidade Populacional: %.2f hab/km²\n", densidade_populacional_2);
     printf("PIB per Capita: %.2f reais\n", pib_per_capita_2);
+
+    // Comparação entre as duas cartas
+    printf("\nComparação de Cartas:\n");
+    printf("População: %d\n", populacao_1 > populacao_2);
+    printf("Área: %d\n", area_1 > area_2);
+    printf("PIB: %d\n", pib_1 > pib_2);
+    printf("Número de Pontos Turísticos: %d\n", pontos_turisticos_1 > pontos_turisticos_2);
+    printf("Densidade Populacional: %d\n", densidade_populacional_1 < densidade_populacional_2);
+    printf("PIB per Capita: %d\n", pib_per_capita_1 > pib_per_capita_2);
+    printf("Super Poder: %d\n", super_poder_1 > super_poder_2);
 
     return 0;
 }
